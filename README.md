@@ -38,13 +38,21 @@ On Ubuntu, you will need X-server; you can try
 `sudo apt-get install libgl1-mesa-dev libxi-dev libxinerama-dev libxcursor-dev libxrandr-dev libgl1-mesa-dev libglu1-mesa-dev`
 
 ### macOS
+
 For macOS, we assume you have the homebrew package manager, and no CUDA-capable GPU.
+
 ```sh
 brew install cmake
 brew install glfw
 mkdir build && cd build
 cmake .. -DVOLREND_USE_CUDA=OFF
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib; export CPLUS_INCLUDE_PATH="/usr/local/Cellar/glfw/3.3.4/include"; make -j8
+```
+
+Note that on MacBooks with the M1 silicon chip, the last line of this should be as follows:
+
+```sh
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib:/opt/homebrew/lib; export CPLUS_INCLUDE_PATH="/opt/homebrew/Cellar/glfw/3.3.4/include"; make -j8
 ```
 
 ### Windows 10
