@@ -1,5 +1,13 @@
 # PlenOctree Volume Rendering
 
+## PlenOctree Examples
+
+Download example PlenOctrees from GCP:
+
+```sh
+gsutil -m cp -r gs://netdron.es/octrees .
+```
+
 ## Building
 Please install a recent version of CMake <https://cmake.org>
 
