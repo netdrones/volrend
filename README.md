@@ -1,30 +1,14 @@
 # PlenOctree Volume Rendering
 
-This is a real-time PlenOctree volume renderer written in C++ using OpenGL,
-constituting part of the code release for:
-
-PlenOctrees for Real Time Rendering of Neural Radiance Fields<br>
-Alex Yu, Ruilong Li, Matthew Tancik, Hao Li, Ren Ng, Angjoo Kanazawa
-
-https://alexyu.net/plenoctrees
-
-![Screenshot](https://raw.githubusercontent.com/sxyu/volrend/master/img/screenshot_slice.jpg)
-
-The project has several repositories:
-
-- NeRF-SH training and PlenOctree extraction <https://github.com/sxyu/plenoctree>
-- PyTorch PlenOctree rendering CUDA extension <https://github.com/sxyu/svox>
-
-More will be released soon, we are taking a short break now.
-
 ## Building
 Please install a recent version of CMake <https://cmake.org>
 
 ### Linux
+
 ```sh
 mkdir build && cd build
 cmake ..
-make -j12
+make -j$(nproc)
 ```
 
 - If you do not have CUDA-capable GPU, pass `-DVOLREND_USE_CUDA=OFF` after `cmake ..` to use fragment shader backend, which is also used for the web demo.
@@ -41,18 +25,24 @@ On Ubuntu, you will need X-server; you can try
 
 For macOS, we assume you have the homebrew package manager, and no CUDA-capable GPU.
 
+Intel Mac:
+
 ```sh
 brew install cmake
 brew install glfw
 mkdir build && cd build
 cmake .. -DVOLREND_USE_CUDA=OFF
-export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib; export CPLUS_INCLUDE_PATH="/usr/local/Cellar/glfw/3.3.4/include"; make -j8
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib; export CPLUS_INCLUDE_PATH="/usr/local/Cellar/glfw/3.3.4/include"; make -j$(sysctl -n hw.ncpu)
 ```
 
-Note that on MacBooks with the M1 silicon chip, the last line of this should be as follows:
+M1 Mac:
 
 ```sh
-export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib:/opt/homebrew/lib; export CPLUS_INCLUDE_PATH="/opt/homebrew/Cellar/glfw/3.3.4/include"; make -j8
+brew install cmake
+brew install glfw
+mkdir build && cd build
+cmake .. -DVOLREND_USE_CUDA=OFF
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib:/opt/homebrew/lib; export CPLUS_INCLUDE_PATH="/opt/homebrew/Cellar/glfw/3.3.4/include"; make -j$(sysctl -n hw.ncpu)
 ```
 
 ### Windows 10
