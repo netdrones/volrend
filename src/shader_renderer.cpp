@@ -41,7 +41,7 @@ const float quad_verts[] = {
 
 struct _RenderUniforms {
     GLint cam_transform, cam_focal, cam_reso;
-    GLint opt_step_size, opt_backgrond_brightness, opt_stop_thresh,
+    GLint opt_step_size, opt_background_brightness, opt_stop_thresh,
         opt_sigma_thresh, opt_render_bbox, opt_basis_minmax, opt_rot_dirs;
     GLint tree_data_tex, tree_child_tex;  //, tree_extra_tex;
     GLint mesh_depth_tex, mesh_color_tex;
@@ -181,7 +181,7 @@ struct VolumeRenderer::Impl {
         glUniform2f(u.cam_focal, camera.fx, camera.fy);
         glUniform2f(u.cam_reso, (float)camera.width, (float)camera.height);
         glUniform1f(u.opt_step_size, options.step_size);
-        glUniform1f(u.opt_backgrond_brightness, options.background_brightness);
+        glUniform1f(u.opt_background_brightness, options.background_brightness);
         glUniform1f(u.opt_stop_thresh, options.stop_thresh);
         glUniform1f(u.opt_sigma_thresh, options.sigma_thresh);
         glUniform1fv(u.opt_render_bbox, 6, options.render_bbox);
@@ -374,7 +374,7 @@ struct VolumeRenderer::Impl {
         u.cam_focal = glGetUniformLocation(program, "cam.focal");
         u.cam_reso = glGetUniformLocation(program, "cam.reso");
         u.opt_step_size = glGetUniformLocation(program, "opt.step_size");
-        u.opt_backgrond_brightness =
+        u.opt_background_brightness =
             glGetUniformLocation(program, "opt.background_brightness");
         u.opt_stop_thresh = glGetUniformLocation(program, "opt.stop_thresh");
         u.opt_sigma_thresh = glGetUniformLocation(program, "opt.sigma_thresh");
